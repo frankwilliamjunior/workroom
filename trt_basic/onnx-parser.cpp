@@ -48,7 +48,7 @@ bool build_model(){
     nvinfer1::IBuilderConfig* config = builder->createBuilderConfig();
     nvinfer1::INetworkDefinition* network = builder->createNetworkV2(1);
 
-    nvonnxparser::IParser* parser = nvonnxparser::createParser(network,logger);
+    nvonnxparser::IParser* parser = nvonnxparser::createParser(*network,logger);
     if(!parser->parseFromFile("demo.onnx", 1)){
         printf("Failed to parser demo.onnx\n");
 
