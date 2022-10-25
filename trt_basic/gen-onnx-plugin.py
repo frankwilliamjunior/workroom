@@ -1,6 +1,6 @@
 import torch
 
-class silu(torch.autograd.Function):
+class siluIMPL(torch.autograd.Function):
     
     # 设定onnx导出参数
     # 自定义实现的op 只需要添加静态方法symbolic即可，除了用g代替forward中的context外 其他参数需相同
@@ -9,7 +9,7 @@ class silu(torch.autograd.Function):
     def symbolic(graph,input,bias):
         return graph.op("Plugin",input,bias,
         name_s = "Swish",info_s = json.dumps({
-            "size" :555,
+            "size" :555
         }))
 
     @staticmethod
@@ -23,3 +23,11 @@ class silu(torch.autograd.Function):
         sigmoid_input = torch.sigmoid(input)
         # 返回 dL/dx  dL/d bias   = dL/dy * dy/dx    dL/dy * dy/d bias
         return grad_output*(sigmoid_input*(1+input*(1-sigmoid_input))),grad_output
+
+class silu(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.param = nn.parameter.Parameter(torch.arange(n).float())
+    
+    def forward(self,input):
+        return siluIMPL.apply(input,self.param)
