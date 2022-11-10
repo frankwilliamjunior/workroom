@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 
+
 class DiceLoss(nn.Module):
     def __init__(self):
         super(DiceLoss, self).__init__()
@@ -50,11 +51,8 @@ class MulticlassDiceLoss(nn.Module):
             totalLoss += diceLoss
  
         return totalLoss
-
-
 #针对多分类问题，二分类问题更简单一点。
 
- 
 class SoftIoULoss(nn.Module):
     def __init__(self, n_classes):
         super(SoftIoULoss, self).__init__()
@@ -89,7 +87,6 @@ class SoftIoULoss(nn.Module):
  
         # Return average loss over classes and batch
         return -loss.mean()
-
 
 # --------------------------- BINARY LOSSES ---------------------------
 class focalLoss(nn.Module):
@@ -186,4 +183,19 @@ class TripletLoss(nn.Module):
         loss = self.ranking_loss(dist_an, dist_ap, y)
         if self.mutual:
             return loss, dist
+        return loss
+
+class smoothL1_Loss(nn.Module):
+    def __init__(self):
+        super().__init__()
+    
+    def forward(self,predict,target,reduction = "mean"):
+        x = torch.abs(target-predict)
+        loss = torch.zeros_like(x)
+        loss[x < 1] = 0.5*x[ x < 1]**2
+        loss[x >= 1] = x[x >= 1]-0.5
+        if reduction == "mean":
+            return loss.mean()
+        if reduction == "sum":
+            return loss.sum()
         return loss

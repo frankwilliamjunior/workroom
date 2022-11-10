@@ -57,5 +57,4 @@ class Concat_BIFPN(nn.Module):
             w = self.w2
             weight = w / (torch.sum(w, dim=0) + self.epsilon)
             x = self.conv(self.swish(weight[0] * x[0] + weight[1] * x[1] + weight[2] * x[2]))
- 
         return x
