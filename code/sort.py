@@ -1,54 +1,34 @@
 import numpy as np
 
+def Bubble_sort(input_list):
+    if len(input_list) == 0 or len(input_list) == 1:
+        print("input list is None or just one element!")
+        return input_list
+    L = len(input_list)
+    for i in range(L-1):
+        for j in range(L-i-1):
+            if input_list[j] > input_list[j+1]:
+                temp = input_list[j]
+                input_list[j] = input_list[j+1]
+                input_list[j+1] = temp
+    print(input_list)
+    return input_list
 
-# 快速排序
-def quick_sort(array):
-    def quicksort(array,start,end):
+def Quick_sort(input_list):
+    if len(input_list) == 0 or len(input_list) == 1:
+        print("input list is None or just one element!")
+        return input_list
+    L = len(input_list)
+    pivot = input_lis[int(L/2)]
+    
 
-        if start >= end:
-            return 
-        # 基准值
-        pivot = array[start]
+def Select_sort(input_list)
+    if len(input_list) == 0 or len(input_list) == 1:
+        print("input list is None or just one element!")
+        return input_list
 
-        low = start
-        high = end
-        # 利用游标遍历
-        while low < high:
-            while low < high and array[high] > pivot:
-                high -= 1
 
-            array[low] = array[high]
-            while low < high and array[low] < pivot:
-                low += 1
-            array[high] = array[low]
+def Insert_sort(input_list):
 
-        array[low] = pivot
 
-        quicksort(array,start,low-1)
-        quicksort(array,low+1,end)
-    quicksort(array,0,len(array)-1)
-    return array
-
-# 选择排序
-def select_sort(array):
-    for i in range(len(array)-1):
-        index = i
-        for j in range(i+1,len(array)):
-            if array[j] < array[index]:
-                index = j
-        temp = array[index]
-        array[index] = array[i]
-        array[i] = temp
-    return array
-
-# 冒泡排序
-def Bubble_sort(array):
-
-    for i in range(len(array)-1):
-        for j in range(len(array)-i-1):
-            if array[j]> array[j+1]:
-                temp = array[j]
-                array[j] = array[j+1]
-                array[j+1] = temp
-    return array
-
+Bubble_sort(test2)
